@@ -7,7 +7,7 @@
 const PrevSquare = require('./5-square');
 
 class Square extends PrevSquare {
-    charPrint() {
+    charPrint(c) {
         // Define a variable to hold the character to be printed
         const myChar = c === undefined ? 'X' : c;
         // iterate through the height
