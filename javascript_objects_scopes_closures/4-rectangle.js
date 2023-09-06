@@ -19,6 +19,18 @@ class Rectangle {
             }
         }
     }
+
+    // exchanges the value of width and height
+    rotate() {
+        // Exchange the values of width and height
+        [this.width, this.height] = [this.height, this.width];
+    }
+
+    double() {
+        // double the width and height
+        this.width *= 2;
+        this.height *= 2;
+    }
 }
 
 module.exports = Rectangle;
