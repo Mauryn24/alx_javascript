@@ -11,8 +11,10 @@ class Square extends PrevSquare {
         const myChar = c === undefined ? 'X' : c;
         for (let i = 0; i < this.height; i++) {
             let myVar = '';
-            for (let j = 0; j < this.width; j++) {
+            let y = 0;
+            while (y < this.width) {
                 myVar += myChar;
+                y++;
             }
             console.log(myVar);
         }
