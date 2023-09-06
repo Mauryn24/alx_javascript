@@ -4,7 +4,7 @@
     Square class that inherits from rectangle
 */
 
-const PrevSquare = require('./5-square.js');
+const PrevSquare = require('./5-square');
 
 class Square extends PrevSquare {
     charPrint() {
