@@ -6,9 +6,10 @@
 
 const Rectangle = require('./5-square.js');
 
-class Square {
+class Square extends Rectangle {
     constructor (size) {
-        this.size = size;
+        super(size, size);
+        // call the constructor of the rectangle class
     }
 
     charPrint (c) {
