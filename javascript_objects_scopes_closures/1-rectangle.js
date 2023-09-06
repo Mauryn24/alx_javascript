@@ -1,3 +1,4 @@
+#!/usr/bin/node
 class Rectangle {
     constructor(w, h) {
         //initialize the attribute width with the value of w
