@@ -1,6 +1,8 @@
 #!/usr/bin/node
 
-// square class that inherits from rectangle
+/*
+    Square class that inherits from rectangle
+*/
 
 const Rectangle = require('./4-rectangle.js');
 
@@ -11,4 +13,4 @@ class Square extends Rectangle {
     }
 }
 
-modules.exports = Square;
+module.exports = Square;
