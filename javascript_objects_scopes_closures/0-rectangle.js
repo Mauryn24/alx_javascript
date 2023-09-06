@@ -1,2 +1,6 @@
 //declaring an empty class
-class Rectangle {}
+class Rectangle {
+    constructor() {
+    }
+}
+module.exports = Rectangle;
