@@ -7,7 +7,7 @@ const req = require('request');
 const id = process.argv[2];
 //get the url from the command line arguements
 
-const url = "https://swapi-api.alx-tools.com/api/films/:id";
+const url = "https://swapi-api.alx-tools.com/api/films/${id}";
 //line constructs the URL by appending the extracted ID to the base URL
 
 req.get(url, {encoding: "utf-8"})
