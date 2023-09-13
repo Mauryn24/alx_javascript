@@ -25,7 +25,7 @@ const httpRequest = req.get(url).pipe(fileStream);
 
 //Handle sucessful completion of writing to the file
 fileStream.on('finish', () => {
-    console.log(`Wrote ${url} to ${filePath}`);
+    //console.log(`Wrote ${url} to ${filePath}`);
 });
 
 //Handle errors
