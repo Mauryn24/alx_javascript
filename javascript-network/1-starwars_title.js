@@ -1,22 +1,46 @@
 #!/usr/bin/node
-// this line specifies the interpreter to use Node.js
 
+// Import the 'request' module
 const req = require('request');
-// import the request module
 
-const id = process.argv[2];
-// get the movie ID from the command line arguments
+// Check if the movie ID argument is provided
+if (process.argv.length < 3) {
+  console.error('Usage: node starwars_title.js <Movie ID>');
+  process.exit(1);
+}
 
-const url = `https://swapi-api.alx-tools.com/api/films/${id}`;
-// construct the URL by appending the extracted ID to the base URL
+// Get the movie ID from the command line arguments
+const movieId = process.argv[2];
 
-req.get(url, { encoding: 'utf-8' })
-// This line sends an HTTP GET request to the specified URL with UTF-8 encoding
+// Construct the URL by appending the movieId to the base URL
+const url = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
 
-.on('data', function (data) {
-    // event listener
-    const title = JSON.parse(data).title;
-    // parse the JSON string to an object
-    console.log(title);
-    // print the title
+// Send an HTTP GET request to the specified URL
+req.get(url, { encoding: 'utf-8' }, (error, response, body) => {
+  if (error) {
+    // Handle and display any errors
+    console.error('Error:', error.message);
+    process.exit(1);
+  }
+
+  if (response.statusCode !== 200) {
+    // Check if the response status code is not 200 (OK)
+    console.error('Error: Unable to fetch movie data. Status code:', response.statusCode);
+    process.exit(1);
+  }
+
+  try {
+    // Try to parse the response body as JSON
+    const movie = JSON.parse(body);
+    if (movie.title) {
+      // Check if the 'title' property exists in the response
+      console.log(movie.title);
+    } else {
+      console.error('Error: Title not found in the response.');
+    }
+  } catch (parseError) {
+    // Handle JSON parsing errors
+    console.error('Error parsing JSON:', parseError.message);
+    process.exit(1);
+  }
 });
