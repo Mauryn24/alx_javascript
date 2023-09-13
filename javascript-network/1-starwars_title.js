@@ -17,6 +17,6 @@ req.get(url, {encoding: "utf-8"})
     //event listener
     const title = JSON.parse(data);
     // turning json string to an object
-    console.log(films.title);
+    console.log(movie.title);
     // print the title
 })
