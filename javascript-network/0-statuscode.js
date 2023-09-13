@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-req = require('request');
+const req = require('request');
 //import the request module
 
 const url = process.argv[2];

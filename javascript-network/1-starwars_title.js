@@ -32,6 +32,7 @@ req.get(url, { encoding: 'utf-8' }, (error, response, body) => {
   try {
     // Try to parse the response body as JSON
     const movie = JSON.parse(body);
+    //convert json data to objects
     if (movie.title) {
       // Check if the 'title' property exists in the response
       console.log(movie.title);
