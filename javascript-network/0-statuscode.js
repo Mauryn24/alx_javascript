@@ -9,6 +9,7 @@ const url = process.argv[2];
 //send a Get request to the specified url
 req.get(url, (error, response) => {
     if (error) {
+        //handle and display errors
         console.error('Error:', error.message);
         process.exit(1);
     }
