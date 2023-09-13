@@ -1,6 +1,5 @@
 #!/usr/bin/node
 
-//import request module
 const request = require('request');
 
 // Check if the API URL argument is provided
@@ -32,5 +31,5 @@ request.get(apiUrl, { json: true }, (error, response, data) => {
   );
 
   // Print the number of movies where Wedge Antilles is present
-  console.log(moviesWithWedgeAntilles.length);
+  console.log(moviesWithWedgeAntilles.length.toString()); // Convert the count to a string
 });
