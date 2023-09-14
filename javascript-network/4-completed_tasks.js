@@ -31,10 +31,9 @@ request(API_URL, function(error, response, body) {
     }
   });
 
-  // Print the users with completed tasks
-  for (const userId in completedTasks) {
-    if (completedTasks[userId] > 0) {
-      console.log(`${userId}: ${completedTasks[userId]}`);
-    }
-  }
+  // Convert the dictionary to a JSON object
+  const outputJson = JSON.stringify(completedTasks, null, 2);
+
+  // Print the JSON object, removing the newline and closing bracket from the last line
+  console.log(outputJson.slice(0, -2) + " " + "}");
 });
