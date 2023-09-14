@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 // Import the request module
 const request = require('request');
 
@@ -31,9 +33,8 @@ request(API_URL, function(error, response, body) {
     }
   });
 
-  // Convert the dictionary to a JSON object
-  const outputJson = JSON.stringify(completedTasks, null, 2);
-
-  // Print the JSON object, removing the newline and closing bracket from the last line
-  console.log(outputJson.slice(0, -2) + " " + "}");
+  // Iterate over the completedTasks object and print the user ID and the number of completed tasks for each user
+  for (const userId in completedTasks) {
+    console.log(`'${userId}': ${completedTasks[userId]}`);
+  }
 });
