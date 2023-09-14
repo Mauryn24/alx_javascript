@@ -1,35 +1,29 @@
 #!/usr/bin/node
 
-const request = require('request');
+// import request
+const { error } = require('console');
+const req = require('request');
 
-// Check if the API URL argument is provided
-if (process.argv.length < 3) {
-  console.error('Usage: node starwars_count.js <API URL>');
-  process.exit(1);
-}
+// first command line arguement
+const APIURL = process.argv[2];
 
-// Get the API URL from the command line arguments
-const apiUrl = process.argv[2];
-
-// Send an HTTP GET request to the specified API URL
-request.get(apiUrl, { json: true }, (error, response, data) => {
-  if (error) {
-    // Handle and display any errors
-    console.error('Error:', error.message);
-    process.exit(1);
-  }
-
-  if (response.statusCode !== 200) {
-    // Check if the response status code is not 200 (OK)
-    console.error('Error: Unable to fetch data. Status code:', response.statusCode);
-    process.exit(1);
-  }
-
-  // Filter the movies where Wedge Antilles (character ID 18) is present
-  const moviesWithWedgeAntilles = data.results.filter(movie =>
-    movie.characters.includes('https://swapi-api.alx-tools.com/api/people/18/')
-  );
-
-  // Print the number of movies where Wedge Antilles is present
-  console.log(moviesWithWedgeAntilles.length.toString()); // Convert the count to a string
-});
+// fetching data from url
+req.get(APIURL, function(error, response, body) {
+    // checking errors
+    if (error) {
+        console.error(error);
+    }
+    // converting json into js objects
+    const data = JSON.parse(body);
+    
+    let count = 0;
+    //loop through the data
+    for(const x of data.results) {
+        // checking if the characterid 18 is present in the characters arrays
+        if (x.characters.includes('https://swapi-api.alx-tools.com/api/people/18/'))
+        // incrementing the number of times we have encountered charid 18
+            count++;
+    }
+    // printing the number of times we have encountered charid 18
+    console.log(count);
+})
