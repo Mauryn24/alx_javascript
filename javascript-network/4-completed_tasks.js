@@ -1,40 +1,32 @@
-#!/usr/bin/bash
+#!/usr/bin/node
 
-// Import the request module
-const request = require('request');
+// import request
+const req = require('request');
 
-// Define the API URL
-const API_URL = "https://jsonplaceholder.typicode.com/todos";
+// first command line arguement
+const APIURL = process.argv[2];
 
-// Make a GET request to the API
-request(API_URL, function(error, response, body) {
+req.get(APIURL, function (error, response, body) {
+  // checking errors
   if (error) {
-    console.log("Something went wrong while making the request to the API");
-    return;
+    console.error(error);
   }
+  // converting json into js objects
+  const data = JSON.parse(body);
 
-  // Parse the JSON response
-  const todos = JSON.parse(body);
-
-  // Create a dictionary to store the number of completed tasks for each user
-  const completedTasks = {};
-
-  // Iterate over the todos
-  todos.forEach(todo => {
-    // Get the user ID
-    const userId = todo.userId;
-
-    // If the task is completed, increment the counter for the user
-    if (todo.completed) {
-      if (!completedTasks.hasOwnProperty(userId)) {
-        completedTasks[userId] = 0;
+  // creating an empty object
+  const obj = {};
+  // loop through the data
+  data.forEach(x => {
+    if (x.completed === true) {
+      if (obj[x.userId]) {
+        obj[x.userId]++;
+      } else {
+        obj[x.userId] = 1;
       }
-      completedTasks[userId]++;
+      // console.log(obj);
     }
+    // console.log(obj);
   });
-
-  // Iterate over the completedTasks object and print the user ID and the number of completed tasks for each user
-  for (const userId in completedTasks) {
-    console.log(`'${userId}': ${completedTasks[userId]}`);
-  }
+  console.log(obj);
 });
