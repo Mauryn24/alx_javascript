@@ -16,19 +16,25 @@ req.get(APIURL, function (error, response, body) {
 
   // creating an empty object
   const obj = {};
+  for(const x of data) {
+    if (x.completed === true){
+      if (!obj[x.userId]) {
+        obj[x.userId] = 1;
+      } else {
+        obj[x.userId]++;
+      }
+    }
+  }
+  console.log(obj);
   // loop through the data
-  data.forEach(x => {
+ /* data.forEach(x => {
     if (x.completed === true) {
       if (!obj[x.userId]) {
         obj[x.userId] = 1;
-        //obj[x.userId]++;
       } else {
         obj[x.userId]++;
-        //obj[x.userId] = 1;
       }
-      // console.log(obj);
     }
-    // console.log(obj);
-  });
-  console.log(obj);
+  });*/
+ // console.log(obj);
 });
