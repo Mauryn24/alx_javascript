@@ -19,10 +19,12 @@ req.get(APIURL, function (error, response, body) {
   // loop through the data
   data.forEach(x => {
     if (x.completed === true) {
-      if (obj[x.userId]) {
-        obj[x.userId]++;
-      } else {
+      if (!obj[x.userId]) {
         obj[x.userId] = 1;
+        //obj[x.userId]++;
+      } else {
+        obj[x.userId]++;
+        //obj[x.userId] = 1;
       }
       // console.log(obj);
     }
