@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form Field</title>
+    <style>
+        body {
+            display: 0;
+            margin: 0;
+            background-color: black;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: azure;
+            background-color: grey;
+            margin: 150px;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button {
+            color: purple;
+            background-color: burlywood;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="dynamicForm">
+            <h1>Dynamic Form Field</h1>
+            <label for="numFields">Number of Fields:</label>
+            <br><br>
+            <select id="numFields" name="numFields">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <br><br>
+            <div id="inputContainer"></div>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="2-dynamic-form.js"></script>
+    <script>
+        // Event listener to generate input fields when the dropdown selection changes
+        document.getElementById('numFields').addEventListener('change', function () {
+            const selectedValue = parseInt(this.value);
+            generateInputFields(selectedValue);
+        });
+
+        // Event listener to validate the form when submitted
+        document.getElementById('dynamicForm').addEventListener('submit', function (event) {
+            validateForm(event);
+        });
+
+        // Initial generation of input fields based on the default selected value
+        generateInputFields(parseInt(document.getElementById('numFields').value));
+    </script>
+</body>
+
+</html>
