@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>local storage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Basic Shopping Cart</h1>
+    <ul id="itemList"> </ul>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <script>
+        // array of available items
+        let availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+
+        // checking if the browser supports local and sessionstorage
+        if (typeof (Storage) !== "undefined") {
+            createStore();
+            displayCart();
+        } else {
+            alert('Sorry, your browser does not support Web storage. Try again with a better one')
+        }
+
+        // function to add items
+        function addItemToCart(item) {
+            // adds a key to the local storage of the name of the item, and set the value to true
+            localStorage.setItem('item', true);
+        }
+
+        // function createStore
+        function createStore() {
+            // get a ul by its id
+            let itemList = document.getElementById('itemList');
+            // Loop through the array of items, and create a list item to add to the ul
+            for (let i = 0; i < availableItems; i++) {
+                let li = document.createElement('li');
+                li.innerHTML = i;
+                //  On click the item should call the function addItemToCart
+                li.addEventListener("click", () => {
+                    addItemToCart(i);
+                });
+                itemList.appendChild(li);
+            }
+        }
+
+        // Create a function displayCart
+        function displayCart() {
+            let cartItemCount = Object.keys(localStorage).length - 1; // Subtract 1 to exclude the "test" item
+
+            // f the local storage contains any item, it should display the message You previously had X items in your cart in a p element that you can append to the body
+            if (cartItemCount > 0) {
+                const cartMessage = document.createElement("p");
+                cartMessage.textContent = `You previously had ${cartItemCount} items in your cart.`;
+                document.body.appendChild(cartMessage);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jscookies</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Login</h1>
+    <div>
+        <input type="text" id="firstname" placeholder="firstname">
+        <input type="text" id="email" placeholder="email">
+    </div>
+    <button onclick="setCookies()">Log me in</button>
+    <div>
+        <br><br>
+        <button onclick="showCookies()">Show the cookies</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <script>
+        // function set cookies
+        function setCookies() {
+            // get the values by their id
+            let firstname = document.getElementById("firstname").value;
+            let email = document.getElementById("email").value;
+            // create cookies
+            Cookies.set('firstname', 'Mauryn');
+            Cookies.set('email', 'maurynnyakio19@gmail.com');
+        }
+        // function show cookies
+        function showCookies() {
+            // create DOM element 
+            let para = document.createElement('p');
+            //set the innerHTML with cookies: and value
+            para.innerHTML = "Cookies: " + 'firstname=' + firstname.value + ' ' + 'email=' + email.value;
+            // append the element
+            document.body.appendChild(para);
+        }
+    </script>
+</body>
+
+</html>

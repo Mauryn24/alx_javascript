@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jscookies</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Login</h1>
+    <div>
+        <input type="text" id="firstname" placeholder="firstname">
+        <input type="text" id="email" placeholder="email">
+    </div>
+    <button onclick="setCookies()">Log me in</button>
+    <div>
+        <br><br>
+        <button onclick="showCookies()">Show the cookies</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <script>
+        // function set cookies
+        function setCookies() {
+            // get the values by their id
+            let firstname = document.getElementById("firstname").value;
+            let email = document.getElementById("email").value;
+            // create cookies
+            Cookies.set('firstname', 'Mauryn', { expires: 10 });
+            Cookies.set('email', 'maurynnyakio19@gmail.com', { expires: 10 });
+        }
+        // function show cookies
+        function showCookies() {
+            // get cookies by their name
+            let firstname = Cookies.get('firstname');
+            let email = Cookies.get('email');
+
+            // create DOM element 
+            let para = document.createElement('p');
+            //set the innerHTML with cookies: and value
+            para.innerHTML = 'email=' + email + '-' + 'firstname=' + firstname;
+            // append the element
+            document.body.appendChild(para);
+        }
+
+        // function getCookie with arguement as name
+        function getCookie(name) {
+            let cookies = Cookies.get();
+            let firstname = Cookies.get('firstname');
+            if (firstname===name) {
+                return cookies
+            } else {
+                return ''
+            }
+        }
+    </script>
+</body>
+
+</html>

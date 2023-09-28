@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jscookies</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Login</h1>
+    <div id="Login">
+        <input type="text" id="firstname" placeholder="firstname">
+        <input type="text" id="email" placeholder="email">
+        <button onclick="setCookies()">Log me in</button>
+    </div>
+    <p id="Message">Welcome Message</p>
+    <div>
+        <br><br>
+        <button onclick="showCookies()">Show the cookies</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <script>
+        // function set cookies
+        function setCookies() {
+            // get the values by their id
+            let firstname = document.getElementById("firstname").value;
+            let email = document.getElementById("email").value;
+            // create cookies
+            Cookies.set('firstname', 'Mauryn', { expires: 10 });
+            Cookies.set('email', 'maurynnyakio19@gmail.com', { expires: 10 });
+        }
+        // function show cookies
+        function showCookies() {
+            // get cookies by their name
+            let firstname = Cookies.get('firstname');
+            let email = Cookies.get('email');
+
+            // create DOM element 
+            let para = document.createElement('p');
+            //set the innerHTML with cookies: and value
+            para.innerHTML = 'email=' + email + '-' + 'firstname=' + firstname;
+            // append the element
+            document.body.appendChild(para);
+        }
+
+        // function getCookie with arguement as name
+        function getCookie(name) {
+            let cookies = Cookies.get();
+            let firstname = Cookies.get('firstname');
+            if (firstname === name) {
+                return cookies
+            } else {
+                return ''
+            }
+        }
+
+        // function showForm
+        function showForm() {
+            // get the message paragraph by its id
+            let Message = document.getElementById('Message');
+            let login = document.getElementById('Login');
+            // check if message exist
+            if (Message) {
+                Message.style.display = 'none';
+                login.style.display = 'block'
+            }
+            // showForm doesnot run... inquire on this
+        }
+
+        // function to hide the login form
+        function hideForm() {
+            // get element by id
+            let login = document.getElementById('Login');
+            // hides the form
+            login.style.display = 'none';
+        }
+
+        // deleteCookiesAndShowForm function
+        function deleteCookiesAndShowForm() {
+            // removes the two cookies
+            Cookies.remove('firstname');
+            Cookies.remove('email');
+            // show the form by calling the showform function
+            showForm();
+        }
+
+        // showWelcomeMessageOrForm function
+        function showWelcomeMessageOrForm() {
+            // get firstname cookies
+            let firstname = Cookies.get('firstname');
+            // create element h1
+            let welcomeMessage = document.createElement('h1');
+            // create a link
+            let logoutLink = document.createElement('a');
+            if (firstname) {
+                // User is logged in
+                welcomeMessage.innerHTML = `Welcome ${firstname}`;
+                // create welcome message
+                logoutLink.innerHTML = "(logout)";
+                // create the logout link for the element
+                logoutLink.style.fontStyle = "italic";
+                // styling the logout link
+                logoutLink.style.fontWeight = "normal";
+                // styling the logout link
+                logoutLink.style.marginLeft = "10px";
+                // styling the logout link
+                logoutLink.href = "javascript:void(0);";
+                // styling the href attribut
+                logoutLink.onclick = deleteCookiesAndShowForm;
+                //on clicking logoutlink call the deletecookieandshowform function 
+                welcomeMessage.appendChild(logoutLink);
+                //  append the welcome message to the logoutlink
+                document.body.innerHTML = '';
+                // create an empty html link 
+                document.body.appendChild(welcomeMessage);
+                // everything is appended to the welcomeMessage 
+            } else {
+                showForm();
+            }
+        }
+        showWelcomeMessageOrForm();
+    </script>
+</body>
+
+</html>
