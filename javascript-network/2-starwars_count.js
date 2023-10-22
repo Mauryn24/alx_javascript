@@ -1,29 +1,46 @@
 #!/usr/bin/node
 
-// import request
-const { error } = require('console');
-const req = require('request');
+const request = require('request');
 
-// first command line arguement
-const APIURL = process.argv[2];
+const url = process.argv[2];
 
-// fetching data from url
-req.get(APIURL, function(error, response, body) {
-    // checking errors
-    if (error) {
-        console.error(error);
+if (!url) {
+    console.error('Please enter a valid URL');
+    process.exit(1);
+}
+
+function fetchData(url) {
+    return new Promise((resolve, reject) => {
+        request.get(url, (error, response, body) => {
+            if (error) {
+                reject(error);
+            } else if (response.statusCode !== 200) {
+                reject(new Error('Failed to fetch movie details. Status code:', response.statusCode));
+            } else {
+                resolve(JSON.parse(body));
+            }
+        });
+    });
+}
+
+async function countFilmsWithWedgeAntilles(url) {
+    try {
+        const films = await fetchData(url);
+        const characterId =  '18'; // Wedge Antilles
+
+        // Filter movies with Wedge Antilles
+        const filmsWithWedgeAntilles = films.results.filter((film) => {
+            return film.characters.some(characterUrl => {
+                const characterIdMatch = characterUrl.match(/\/(\d+)\/$/);
+                return characterIdMatch && characterIdMatch[1] === characterId;
+            });
+        });
+
+        console.log(filmsWithWedgeAntilles.length);
+    } catch (error) {
+        console.error('Error:', error.message);
+        process.exit(1);
     }
-    // converting json into js objects
-    const data = JSON.parse(body);
-    
-    let count = 0;
-    //loop through the data
-    for(const x of data.results) {
-        // checking if the characterid 18 is present in the characters arrays
-        if (x.characters.includes('https://swapi-api.alx-tools.com/api/people/18/'))
-        // incrementing the number of times we have encountered charid 18
-            count++;
-    }
-    // printing the number of times we have encountered charid 18
-    console.log(count);
-})
+}
+
+countFilmsWithWedgeAntilles(url);
